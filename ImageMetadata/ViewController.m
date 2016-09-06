@@ -68,26 +68,34 @@
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library assetForURL:assetURL
              resultBlock:^(ALAsset *asset) {
+                 
                  NSDictionary *imageMetadata = [[NSMutableDictionary alloc] initWithDictionary:asset.defaultRepresentation.metadata];
                  
-                 NSDictionary *gpsDic = [imageMetadata objectForKey:@"{GPS}"];
+//                 NSLog(@"metadata:--%@",imageMetadata);
+                 
+//                 NSDictionary *gpsDic = [imageMetadata objectForKey:@"{GPS}"];
                  NSDictionary *exifDic = [imageMetadata objectForKey:@"{Exif}"];
-                 NSDictionary *tiffDic = [imageMetadata objectForKey:@"{TIFF}"];
+//                 NSDictionary *tiffDic = [imageMetadata objectForKey:@"{TIFF}"];
+                 
+                 NSLog(@"UserComment:%@",[exifDic valueForKey:@"UserComment"]);
                  
                  //可交换图像文件
                  NSLog(@"Exif info:--%@",exifDic);
                  //地理位置信息
-                 NSLog(@"GPS info:--%@",gpsDic);
+//                 NSLog(@"GPS info:--%@",gpsDic);
                  //图像文件格式
-                 NSLog(@"tiff info:--%@",tiffDic);
+//                 NSLog(@"tiff info:--%@",tiffDic);
                  
-                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                 [formatter setDateFormat:@"YYYY:MM:dd hh:mm:ss"];
-                 NSString *now = [formatter stringFromDate:[NSDate date]];
+//                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                 [formatter setDateFormat:@"YYYY:MM:dd hh:mm:ss"];
+//                 NSString *now = [formatter stringFromDate:[NSDate date]];
+//                 
+//                 //写入数据
+//                 [exifDic setValue:now forKey:(NSString*)kCGImagePropertyExifDateTimeOriginal];
+//                 [imageMetadata setValue:exifDic forKey:@"{Exif}"];
                  
-                 //写入数据
-                 [exifDic setValue:now forKey:(NSString*)kCGImagePropertyExifDateTimeOriginal];
-                 //kCGImagePropertyExifUserComment
+                 NSString *userComment = @"this is a test text for writing data in UserComment";
+                 [exifDic setValue:userComment forKey:(NSString*)kCGImagePropertyExifUserComment];
                  [imageMetadata setValue:exifDic forKey:@"{Exif}"];
                  
                  [library writeImageToSavedPhotosAlbum:[image CGImage] metadata:imageMetadata completionBlock:^(NSURL *assetURL, NSError *error) {
@@ -101,7 +109,6 @@
             failureBlock:^(NSError *error) {
                 NSLog(@"read error:%@",error.userInfo);
             }];
-    
     
 }
 
@@ -124,6 +131,7 @@
         weakSelf.resultTextView.text = @"Not Allowed To Access Photo Library!";
         
     }];
+    
 }
 
 @end
