@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <ImageIO/ImageIO.h>
+#import "NSData+Encryption.h"
 
 @interface ViewController ()<UIImagePickerControllerDelegate,UINavigationBarDelegate>
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
@@ -75,7 +76,7 @@
                  
 //                 NSDictionary *gpsDic = [imageMetadata objectForKey:@"{GPS}"];
                  NSDictionary *exifDic = [imageMetadata objectForKey:@"{Exif}"];
-//                 NSDictionary *tiffDic = [imageMetadata objectForKey:@"{TIFF}"];
+                 NSDictionary *tiffDic = [imageMetadata objectForKey:@"{TIFF}"];
                  
                  NSLog(@"UserComment:%@",[exifDic valueForKey:@"UserComment"]);
                  
@@ -84,19 +85,24 @@
                  //地理位置信息
 //                 NSLog(@"GPS info:--%@",gpsDic);
                  //图像文件格式
-//                 NSLog(@"tiff info:--%@",tiffDic);
+                 NSLog(@"tiff info:--%@",tiffDic);
                  
+                 //写入DateTimeOriginal
 //                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 //                 [formatter setDateFormat:@"YYYY:MM:dd hh:mm:ss"];
 //                 NSString *now = [formatter stringFromDate:[NSDate date]];
 //                 
-//                 //写入数据
+                 
 //                 [exifDic setValue:now forKey:(NSString*)kCGImagePropertyExifDateTimeOriginal];
 //                 [imageMetadata setValue:exifDic forKey:@"{Exif}"];
                  
+                 //写入UserComment
                  NSString *userComment = @"this is a test text for writing data in UserComment";
-                 [exifDic setValue:userComment forKey:(NSString*)kCGImagePropertyExifUserComment];
-                 [imageMetadata setValue:exifDic forKey:@"{Exif}"];
+                 NSData *encodeData = [userComment dataUsingEncoding:NSUTF8StringEncoding];
+                 NSData *aesData = [encodeData AES256EncryptWithKey:@"key"];
+                 NSString *encryptString = [aesData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+                 [exifDic setValue:encryptString forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
+                 [imageMetadata setValue:exifDic forKey:@"{TIFF}"];
                  
                  [library writeImageToSavedPhotosAlbum:[image CGImage] metadata:imageMetadata completionBlock:^(NSURL *assetURL, NSError *error) {
                      if (error == nil)
@@ -104,6 +110,8 @@
                      else
                          NSLog(@"write error:%@",error.userInfo);
                  }];
+                 
+                 
                  
              }
             failureBlock:^(NSError *error) {

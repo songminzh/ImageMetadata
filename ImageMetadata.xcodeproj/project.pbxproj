@@ -15,6 +15,7 @@
 		001491F91D7D298A00360BFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001491F71D7D298A00360BFC /* LaunchScreen.storyboard */; };
 		001492041D7D298A00360BFC /* ImageMetadataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 001492031D7D298A00360BFC /* ImageMetadataTests.m */; };
 		0014920F1D7D298A00360BFC /* ImageMetadataUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0014920E1D7D298A00360BFC /* ImageMetadataUITests.m */; };
+		007C95611D880321006891AF /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 007C95601D880321006891AF /* NSData+Encryption.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		0014920A1D7D298A00360BFC /* ImageMetadataUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageMetadataUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0014920E1D7D298A00360BFC /* ImageMetadataUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageMetadataUITests.m; sourceTree = "<group>"; };
 		001492101D7D298A00360BFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		007C955F1D880321006891AF /* NSData+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Encryption.h"; sourceTree = "<group>"; };
+		007C95601D880321006891AF /* NSData+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Encryption.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				001491ED1D7D298A00360BFC /* AppDelegate.m */,
 				001491EF1D7D298A00360BFC /* ViewController.h */,
 				001491F01D7D298A00360BFC /* ViewController.m */,
+				007C955F1D880321006891AF /* NSData+Encryption.h */,
+				007C95601D880321006891AF /* NSData+Encryption.m */,
 				001491F21D7D298A00360BFC /* Main.storyboard */,
 				001491F51D7D298A00360BFC /* Assets.xcassets */,
 				001491F71D7D298A00360BFC /* LaunchScreen.storyboard */,
@@ -273,6 +278,7 @@
 				001491F11D7D298A00360BFC /* ViewController.m in Sources */,
 				001491EE1D7D298A00360BFC /* AppDelegate.m in Sources */,
 				001491EB1D7D298A00360BFC /* main.m in Sources */,
+				007C95611D880321006891AF /* NSData+Encryption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
